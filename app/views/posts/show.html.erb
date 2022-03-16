@@ -1,13 +1,29 @@
 <div class="card my-5">
   <div class="card-body">
     <p id="notice"><%= notice %></p>
-
+  <!--post title -->
     <h1 class="text-center"><%= @post.title %></h1>
     <hr >
+  <!--post body -->
     <div class="my-4">
       <%= simple_format(@post.body) %>
     </div>
 
-    <%= link_to 'Back', posts_path, class: 'btn btn-light' %>
+    <div class="card my-2">
+    <!--post comment -->
+      <%= render @post.comments %>
+
+    <!--comment form -->
+      <div class="card-body">
+        <p class="font-weight-bold">Comments</p>
+        <%= form_with(model: [@post, @post.comments.build]) do |f| %>
+          <div class="form-group">
+            <%= f.label 'New comment' %>
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+          <%= f.submit 'Submit', class: 'btn btn-primary my-2' %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
